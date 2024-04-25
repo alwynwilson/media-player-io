@@ -1,8 +1,31 @@
 import React from 'react'
 import {Row, Col } from 'react-bootstrap'
 import VideoCard from './VideoCard'
+import { useEffect } from 'react';
+import { getAllVideoAPI } from '../Services/allAPI';
 
 function View() {
+
+  const [allVideos,setAllVideos] = useState([])
+  console.log(allVideos);
+
+  useEffect(()=>{
+    getAllVideos()
+  },[])
+
+  const getAllVideos = async ()=>{
+    try{
+      const result = await getAllVideoAPI()
+      console.log(result)
+      if(result.status>=200 && result.status<300){
+        setAllVideos(result.data);
+      }
+    
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   return (
     <>
       <Row>

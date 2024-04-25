@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Modal,Button, Form, FloatingLabel } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { addVideoAPI } from '../Services/allAPI';
 
 function Add() {
     const [invalidURL,setInvalidURL] = useState(false)
@@ -32,12 +33,25 @@ function Add() {
         }
     }
 
-    const handleUpload = ()=>{
+    const handleUpload = async ()=>{
         console.log("Inside upload function")
         // const {key1,key2,....} = object-name
-        const [caption ,imgURL , youtubeURL] = videoDetails
+        const {caption ,imgURL , youtubeURL} = videoDetails
         if(caption && imgURL && youtubeURL){
             console.log("api call")
+            try{
+                const result = await addVideoAPI(videoDetails)
+                console.log(result);
+                if(result.status>=200 && result.status<300){
+                    console.log(result.data);
+                    toast.success(`${result.data.caption} added to your collection!!`)
+                    handleClose()
+                }else{
+                    toast.error(result.response.data)
+                }
+            }catch(err){
+                console.log(err);
+            }
         }else{
             toast.warning("Please fill the form completely");
         }

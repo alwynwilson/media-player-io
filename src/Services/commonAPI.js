@@ -4,7 +4,7 @@ const commonAPI = async (httpMethod,url,reqbody)=>{
     const reConfig = {
         method:httpMethod,
         url,
-        data:reqBody
+        data:reqbody
     }
     return await axios(reConfig).then(res=>{ 
         return res
