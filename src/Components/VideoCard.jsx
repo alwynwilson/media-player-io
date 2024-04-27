@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Card, Modal} from 'react-bootstrap'
 
-function VideoCard() {
+function VideoCard({displayData}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -9,10 +9,10 @@ function VideoCard() {
   return (
     <>
       <Card>
-        <Card.Img onClick={handleShow} height={'180px'} variant="top" src="https://tse1.mm.bing.net/th?id=OIP.yRAeJYYp6kE0zDyp09VkPwHaD2&pid=Api&P=0&h=180" />
+        <Card.Img onClick={handleShow} height={'180px'} variant="top" src={displayData?.imgURL} />
         <Card.Body>
           <Card.Title className='d-flex justify-content-between'>
-            <p>Caption</p>
+            <p>{displayData?.caption}</p>
             <button className='btn'><i className='fa-solid fa-trash text-danger'></i></button>
           </Card.Title>
         </Card.Body>
@@ -20,10 +20,10 @@ function VideoCard() {
 
       <Modal size='lg' show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Caption</Modal.Title>
+          <Modal.Title>{displayData?.caption}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <iframe width="100%" height="311" src="https://www.youtube.com/embed/L0yEMl8PXnw?autoplay=1" title="Caption" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+        <iframe width="100%" height="311" src={displayData?.youtubeURL} title="Caption" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
         </Modal.Body>
       </Modal>
     </>

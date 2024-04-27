@@ -1,7 +1,7 @@
 import React from 'react'
 import {Row, Col } from 'react-bootstrap'
 import VideoCard from './VideoCard'
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { getAllVideoAPI } from '../Services/allAPI';
 
 function View() {
@@ -29,9 +29,17 @@ function View() {
   return (
     <>
       <Row>
-        <Col className='mb-4' sm={12} md={6} lg={4}>
-          <VideoCard/>
-        </Col>
+        {
+          allVideos.length>0?
+          allVideos?.map(video=>(
+            <Col key={video?.id} className='mb-4' sm={12} md={6} lg={4}>
+            <VideoCard displayData={video}/>
+          </Col>
+          ))
+          :
+          <div className='fw-bolder text-danger'>Nothing to display</div>
+        }
+        
       </Row>
     </>
   )
