@@ -4,14 +4,14 @@ import VideoCard from './VideoCard'
 import { useEffect,useState } from 'react';
 import { getAllVideoAPI } from '../Services/allAPI';
 
-function View() {
+function View({addVideoResponse}) {
 
   const [allVideos,setAllVideos] = useState([])
   console.log(allVideos);
 
   useEffect(()=>{
     getAllVideos()
-  },[])
+  },[addVideoResponse])
 
   const getAllVideos = async ()=>{
     try{

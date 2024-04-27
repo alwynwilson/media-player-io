@@ -1,11 +1,19 @@
 import React, {useState} from 'react'
 import {Card, Modal} from 'react-bootstrap'
+import { removeVideoAPI } from '../Services/allAPI';
 
 function VideoCard({displayData}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleRemoveVideo = async (videoId)=>{
+    try{
+      const result = await removeVideoAPI(videoId)
+    }catch(err){
+      console.log(err);
+    }
+  }
   return (
     <>
       <Card>
@@ -13,7 +21,7 @@ function VideoCard({displayData}) {
         <Card.Body>
           <Card.Title className='d-flex justify-content-between'>
             <p>{displayData?.caption}</p>
-            <button className='btn'><i className='fa-solid fa-trash text-danger'></i></button>
+            <button onClick={()=>handleRemoveVideo(displayData?.id)} className='btn'><i className='fa-solid fa-trash text-danger'></i></button>
           </Card.Title>
         </Card.Body>
       </Card>

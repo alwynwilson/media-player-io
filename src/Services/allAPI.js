@@ -11,3 +11,8 @@ export const addVideoAPI = async (video)=>{
 export const getAllVideoAPI = async ()=>{
     return await commonAPI("GET",`${SERVER_URL}/allVideos`,"")
 }
+
+// remove video by videocard component 
+export const removeVideoAPI = async (videoId)=>{
+    return await commonAPI("DELETE",`${SERVER_URL}/allVideos/${videoId}`,{})
+}
