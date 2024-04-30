@@ -26,3 +26,8 @@ export const saveHistoryAPI = async (video)=>{
 export const getVideoHistoryAPI = async ()=>{
     return await commonAPI("GET",`${SERVER_URL}/history`,"")
 }
+
+// remove history calle dby history component
+export const removeHistoryAPI = async (videoId)=>{
+    return await commonAPI("DELETE",`${SERVER_URL}/history/${videoId}`,{})
+}
