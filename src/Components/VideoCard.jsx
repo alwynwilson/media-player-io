@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Card, Modal} from 'react-bootstrap'
 import { removeVideoAPI,saveHistoryAPI } from '../Services/allAPI';
 
-function VideoCard({displayData,setDeleteResponse}) {
+function VideoCard({displayData,setDeleteResponse,insideCategory}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -39,7 +39,11 @@ function VideoCard({displayData,setDeleteResponse}) {
         <Card.Body>
           <Card.Title className='d-flex justify-content-between'>
             <p>{displayData?.caption}</p>
-            <button onClick={()=>handleRemoveVideo(displayData?.id)} className='btn'><i className='fa-solid fa-trash text-danger'></i></button>
+            {
+              !insideCategory &&
+              <button onClick={()=>handleRemoveVideo(displayData?.id)} className='btn'><i className='fa-solid fa-trash text-danger'></i></button>
+
+            }
           </Card.Title>
         </Card.Body>
       </Card>

@@ -2,16 +2,16 @@ import React from 'react'
 import {Row, Col } from 'react-bootstrap'
 import VideoCard from './VideoCard'
 import { useEffect,useState } from 'react';
-import { getAllVideoAPI } from '../Services/allAPI';
+import { addVideoAPI, getAllVideoAPI, getSingleCategoryAPI, updateCategoryAPI } from '../Services/allAPI';
 
-function View({addVideoResponse}) {
+function View({addVideoResponse,removeCategoryVideoResponse}) {
   const [deleteResponse,setDeleteResponse] = useState("")
   const [allVideos,setAllVideos] = useState([])
   console.log(allVideos);
 
   useEffect(()=>{
     getAllVideos()
-  },[addVideoResponse,deleteResponse])
+  },[addVideoResponse,deleteResponse,removeCategoryVideoResponse])
 
   const getAllVideos = async ()=>{
     try{
@@ -26,9 +26,30 @@ function View({addVideoResponse}) {
     }
   }
 
+  const dragOverView = (e)=>{
+    e.preventDefault()
+  }
+
+  const handleCategoryVideo = async (e)=>{
+    const {categoryId,videoDetails} = JSON.parse(e.dataTransfer.getData("dataShare"))
+    console.log(categoryId,videoDetails);
+    try{
+      const {data} = await getSingleCategoryAPI(categoryId)
+      console.log(data);
+      const updatedCategoryVideoList = data.allVideos.filter(items=>items.id!==videoDetails.id)
+      console.log(updatedCategoryVideoList)
+      const {categoryName,id} = data
+      const categoryResult = await updateCategoryAPI(categoryId,{id,categoryName,allVideos:updatedCategoryVideoList})
+      await addVideoAPI(videoDetails)
+      getAllVideos()
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   return (
     <>
-      <Row>
+      <Row droppable={true} onDragOver={e=>dragOverView(e)}  onDrop={e=>handleCategoryVideo(e)}>
         {
           allVideos.length>0?
           allVideos?.map(video=>(

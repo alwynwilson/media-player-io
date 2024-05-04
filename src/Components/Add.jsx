@@ -45,6 +45,7 @@ function Add({setAddVideoResponse}) {
                 if(result.status>=200 && result.status<300){
                     console.log(result.data);
                     setAddVideoResponse(result.data)
+                    setVideoDetails({caption:"",imgURL:"",youtubeURL:""})
                     toast.success(`${result.data.caption} added to your collection!!`)
                     handleClose()
                 }else{
