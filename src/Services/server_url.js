@@ -1,3 +1,3 @@
-const SERVER_URL = "http://localhost:3000"
+const SERVER_URL = "https://mp-server-904p.onrender.com"
 
 export default SERVER_URL
