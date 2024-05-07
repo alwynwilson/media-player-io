@@ -4,7 +4,7 @@ import VideoCard from './VideoCard'
 import { useEffect,useState } from 'react';
 import { addVideoAPI, getAllVideoAPI, getSingleCategoryAPI, updateCategoryAPI } from '../Services/allAPI';
 
-function View({addVideoResponse,removeCategoryVideoResponse}) {
+function View({addVideoResponse,removeCategoryVideoResponse,setDeleteVideoCategoryResponse}) {
   const [deleteResponse,setDeleteResponse] = useState("")
   const [allVideos,setAllVideos] = useState([])
   console.log(allVideos);
@@ -40,6 +40,7 @@ function View({addVideoResponse,removeCategoryVideoResponse}) {
       console.log(updatedCategoryVideoList)
       const {categoryName,id} = data
       const categoryResult = await updateCategoryAPI(categoryId,{id,categoryName,allVideos:updatedCategoryVideoList})
+      setDeleteVideoCategoryResponse(categoryResult.data)
       await addVideoAPI(videoDetails)
       getAllVideos()
     }catch(err){
